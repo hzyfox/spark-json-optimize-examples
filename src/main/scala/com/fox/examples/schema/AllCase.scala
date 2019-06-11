@@ -4,7 +4,6 @@ package com.fox.examples.schema
   * @author zyp
   */
 class AllCase {
-  git
 }
 
 
