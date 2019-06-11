@@ -41,7 +41,7 @@ object ClusterTest {
         val recordEachPartition = Integer.parseInt(commandLine.getOptionValue("rep"))
         val tableName = commandLine.getOptionValue("tn")
         assert(tableName != null && partitionNumber > 0 && recordEachPartition > 0)
-        val data = for (i <- 0 until recordEachPartition) yield baseData
+        val data = for (i <- 0 until partitionNumber) yield baseData
         val dataTable = spark.sparkContext.parallelize(data, partitionNumber).mapPartitions(iter => {
           val base = iter.next()
           val buffer = new ListBuffer[JsonTest]
