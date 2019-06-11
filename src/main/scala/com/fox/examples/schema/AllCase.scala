@@ -4,23 +4,19 @@ package com.fox.examples.schema
   * @author zyp
   */
 class AllCase {
-
+  git
 }
 
 
-case class dws_rsm_dm_credit_huabei_mysql2odps_dd(
-                                                   id:BigInt,
-                                                   gmt_create:String,
-                                                   gmt_modified:String,
-                                                   biz_no:String,
-                                                   user_id:String,
-                                                   phone:String,
-                                                   input:String,
-                                                   result:String,
-                                                   terminal_id:String,
-                                                   topten_person:String,
-                                                   start_nickname:String,
-                                                   end_nickname:String)
+case class dws_rsm_dm_credit_huabei_mysql2odps_dd(user_id:String,
+                                                  phone:String,
+                                                  gmt_create:String,
+                                                  gmt_modified:String,
+                                                  topten_person:String,
+                                                  start_nickname:String,
+                                                  end_nickname:String,
+                                                  input:String,
+                                                  result:String)
 
 case class ods_pcic_dmc_model_data(tnt_inst_id:String,
                                    id:String,
@@ -39,79 +35,35 @@ case class ods_pcic_dmc_model_data(tnt_inst_id:String,
                                    data_org_id:String,
                                    collect_execution_id:String)
 
-case class ods_pdm_order_operate(tnt_inst_id:String,
-                                 operate_no:String,
-                                 order_no:String,
-                                 process_id:String,
-                                 action:String,
-                                 status:String,
-                                 data_col:String,
-                                 last_moder:String,
-                                 moder_type:String,
-                                 gmt_create:String,
-                                 gmt_modified:String,
-                                 ordertype:String)  //2.0
+case class ods_pdm_order_operate(operate_no:String,
+                                 data_col:String)  //2.0
 case class ods_lnia_org_info(inst_code:String,
-                             tnt_inst_id:String,
                              ip_id:String,
                              ip_role_id:String,
                              in_acct_no:String,
-                             out_acct_no:String,
                              in_acct_tp:String,
-                             out_acct_tp:String,
-                             fip_code:String,
-                             gmt_create:String,
-                             gmt_modified:String,
-                             alifin_inst_code:String,
-                             inst_tp:String,
-                             plan_ivst_cpt:String,
-                             start_date:String,
-                             end_date:String,
-                             clear_date:String,
-                             inst_name:String,
-                             normal_buy_inst_code:String,
-                             equity_buy_inst_code:String,
-                             status:String,
-                             phoenix_inst_code:String,
-                             vrtl_acct_no:String,
-                             ccy:String)  //2.1
-case class ods_parm_d(tnt_inst_id:String,
-                      parm_d_code:String,
-                      parm_d_uk:String,
-                      parm_d_data:String,
+                             out_acct_no:String,
+                             out_acct_tp:String)  //2.1
+case class ods_parm_d(
                       parm_t_code:String,
-                      parm_t_vrsn:String,
                       crtor:String,
                       last_moder:String,
                       gmt_create:String,
                       gmt_modified:String,
                       json_data:String)   //3
-case class s_gd_poi_base(update_time:String,
-                         sid:String,
-                         poiid_length:String,
-                         poiid:String,
+
+case class ods_parm_d2(
+                       parm_t_code:String,
+                       crtor:String,
+                       last_moder:String,
+                       gmt_create:String,
+                       gmt_modified:String,
+                       json_data:String)   //4
+
+case class s_gd_poi_base(poiid:String,
                          json_str:String) //5
 case class cms_ces_generic_review_df(id:BigInt,
-                                     task_type:String,
                                      resource_id:String,
-                                     task_id:BigInt,
-                                     work_type:BigInt,
-                                     status:BigInt,
-                                     create_time:String,
-                                     package_id:BigInt,
-                                     pick:BigInt,
-                                     result:BigInt,
-                                     edit_team_id:String,
-                                     team_id:String,
-                                     owner:String,
-                                     own_time:String,
-                                     finish_time:String,
-                                     sub_task_type:String,
-                                     query_param_a:String,
-                                     query_param_b:String,
-                                     final_result:String,
-                                     tag:String,
-                                     is_saved:String,
-                                     total_weight:String,
-                                     ng_weight:String) //6.0
+                                     task_type:String
+                                     ) //6.0
 case class s_generic_task_edit_result_json(data:String) //6.1
