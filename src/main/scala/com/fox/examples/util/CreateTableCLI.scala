@@ -29,6 +29,19 @@ object CreateTableCLI extends CommonCLI {
     sourceFile.setArgName("sourceFile")
     sourceFile.setType(classOf[String])
 
+    val partitionNumber = new Option("pn", "partitionNumber", true, "partition Number")
+    tableName.setArgName("partitionNumber")
+    tableName.setType(classOf[Int])
+
+
+    val recordEachPartition = new Option("rep","recordEachPartition", true, "record Each Partition")
+    tableName.setArgName("tableName")
+    tableName.setType(classOf[Int])
+
+
+
+
+
     val cacheTableName = new Option("ct", "cacheTableName", true, "cacheTableName")
     cacheTableName.setArgName("cacheTableName")
     cacheTableName.setType(classOf[String])
