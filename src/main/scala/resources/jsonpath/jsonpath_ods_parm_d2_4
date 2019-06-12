@@ -1,0 +1,6 @@
+default,ods_parm_d2,json_data,dataClassification
+default,ods_parm_d2,json_data,dataContentDimAttributeEnName
+default,ods_parm_d2,json_data,dataContentDepartmentId
+default,ods_parm_d2,json_data,dataContentDimAttributeCnName
+default,ods_parm_d2,json_data,dataContentDimId
+default,ods_parm_d2,json_data,dataContentDimAttributeId

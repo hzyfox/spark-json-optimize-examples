@@ -1,0 +1,6 @@
+default,ods_parm_d,json_data,dataContentCompositeQualifierIds
+default,ods_parm_d,json_data,dataContentQualifierDesc
+default,ods_parm_d,json_data,dataContentDepartmentId
+default,ods_parm_d,json_data,dataContentDomainId
+default,ods_parm_d,json_data,gmtModify
+default,ods_parm_d,json_data,ownerName
