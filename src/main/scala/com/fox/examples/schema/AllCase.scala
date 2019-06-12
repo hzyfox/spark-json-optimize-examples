@@ -4,6 +4,7 @@ package com.fox.examples.schema
   * @author zyp
   */
 class AllCase {
+
 }
 
 
@@ -32,7 +33,7 @@ case class ods_pcic_dmc_model_data(tnt_inst_id:String,
                                    object_content:String,
                                    metadata:String,
                                    data_org_id:String,
-                                   collect_execution_id:String)
+                                   collect_execution_id:String) //1
 
 case class ods_pdm_order_operate(operate_no:String,
                                  data_col:String)  //2.0

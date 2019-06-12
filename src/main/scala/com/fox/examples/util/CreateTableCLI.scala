@@ -51,6 +51,8 @@ object CreateTableCLI extends CommonCLI {
     options.addOption(help)
     options.addOption(sourceFile)
     options.addOption(tableName)
+    options.addOption(partitionNumber)
+    options.addOption(recordEachPartition)
     options.addOption(cacheTableName)
 
     (commandLineParser.parse(options, args), options)
