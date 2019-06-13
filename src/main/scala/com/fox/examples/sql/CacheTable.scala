@@ -24,6 +24,7 @@ object CacheTable {
     val spark = SparkSession
       .builder()
       .config("spark.sql.catalogImplementation", "hive")
+      .config("spark.sql.json.writeCache",true)
       .enableHiveSupport()
       .getOrCreate()
 
@@ -64,7 +65,9 @@ object CacheTable {
       val tableName = dbAndTableName(1)
       val selectContentString = x._2
       println(selectContentString)
+      spark.sql(s"drop table if exists ${dbName}_${tableName}")
       spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${dbName}_${tableName}")
+
       spark.sql(s"select * from ${dbName}_${tableName} limit 1").show()
     }
 
