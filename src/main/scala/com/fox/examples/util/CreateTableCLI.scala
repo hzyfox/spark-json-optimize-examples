@@ -30,14 +30,26 @@ object CreateTableCLI extends CommonCLI {
     sourceFile.setType(classOf[String])
 
     val partitionNumber = new Option("pn", "partitionNumber", true, "partition Number")
-    tableName.setArgName("partitionNumber")
-    tableName.setType(classOf[Int])
+    partitionNumber.setArgName("partitionNumber")
+    partitionNumber.setType(classOf[Int])
 
 
     val recordEachPartition = new Option("rep","recordEachPartition", true, "record Each Partition")
-    tableName.setArgName("tableName")
-    tableName.setType(classOf[Int])
+    recordEachPartition.setArgName("recordEachPartition")
+    recordEachPartition.setType(classOf[Int])
 
+    val selectedSQlNumber = new Option("ssn","selectedSQlNumber",true,"selected SQl number")
+    selectedSQlNumber.setArgName("selectedSQLNumber")
+    selectedSQlNumber.setType(classOf[String])
+
+
+    val optimize = new Option("o","optimize",true,"optimize or not (true or false)")
+    optimize.setArgName("optimize")
+    optimize.setType(classOf[Boolean])
+
+    val cycleNumber = new Option("cn","cycleNumber",true,"number of cycles")
+    cycleNumber.setArgName("cycleNumber")
+    cycleNumber.setType(classOf[Int])
 
 
 
@@ -54,6 +66,9 @@ object CreateTableCLI extends CommonCLI {
     options.addOption(partitionNumber)
     options.addOption(recordEachPartition)
     options.addOption(cacheTableName)
+    options.addOption(selectedSQlNumber)
+    options.addOption(optimize)
+    options.addOption(cycleNumber)
 
     (commandLineParser.parse(options, args), options)
   }

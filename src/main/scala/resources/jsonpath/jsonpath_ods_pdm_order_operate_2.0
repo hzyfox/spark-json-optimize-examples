@@ -1,0 +1,5 @@
+default,ods_pdm_order_operate,data_col,instData.instParties[0].accountNo 
+default,ods_pdm_order_operate,data_col,instParties\[0].type
+default,ods_pdm_order_operate,data_col,instParties\[0].code
+default,ods_pdm_order_operate,data_col,instParties\[0].ipId
+default,ods_pdm_order_operate,data_col,instParties\[0].ipRoleId

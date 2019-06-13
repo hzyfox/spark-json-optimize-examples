@@ -1,0 +1,7 @@
+default,s_gd_poi_base,json_str,baseinfo.address
+default,s_gd_poi_base,json_str,update_flag
+default,s_gd_poi_base,json_str,merged_status
+default,s_gd_poi_base,json_str,baseinfo.name
+default,s_gd_poi_base,json_str,baseinfo.from_field.name
+default,s_gd_poi_base,json_str,baseinfo.from_field.address
+default,s_gd_poi_base,json_str,baseinfo.from_field.navi
