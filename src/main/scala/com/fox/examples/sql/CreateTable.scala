@@ -52,7 +52,7 @@ object CreateTable {
     val partitionNumber = Integer.parseInt(commandLine.getOptionValue("pn"))
     val recordEachPartition = Integer.parseInt(commandLine.getOptionValue("rep"))
 
-    assert(tableSourcePath != null && tableName != null && partitionNumber != null && recordEachPartition != null)
+    assert(tableSourcePath != null && tableName != null && partitionNumber >0 && recordEachPartition >0)
 
     val baseData = Source.fromFile(tableSourcePath).mkString
     val seq =for (i <- 0 until partitionNumber) yield baseData
