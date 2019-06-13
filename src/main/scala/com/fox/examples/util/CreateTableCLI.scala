@@ -47,6 +47,10 @@ object CreateTableCLI extends CommonCLI {
     optimize.setArgName("optimize")
     optimize.setType(classOf[Boolean])
 
+    val cycleNumber = new Option("cn","cycleNumber",true,"number of cycles")
+    cycleNumber.setArgName("cycleNumber")
+    cycleNumber.setType(classOf[Int])
+
 
 
 
@@ -63,6 +67,8 @@ object CreateTableCLI extends CommonCLI {
     options.addOption(recordEachPartition)
     options.addOption(cacheTableName)
     options.addOption(selectedSQlNumber)
+    options.addOption(optimize)
+    options.addOption(cycleNumber)
 
     (commandLineParser.parse(options, args), options)
   }
