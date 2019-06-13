@@ -8,6 +8,7 @@ import org.apache.commons.cli.HelpFormatter
 import org.apache.spark.sql.SparkSession
 
 import scala.collection.mutable.ListBuffer
+import scala.io.Source
 
 /**
   * @author zyp
@@ -51,18 +52,8 @@ object CreateTable1 {
 
     assert(tableSourcePath != null && tableName != null && partitionNumber > 0 && recordEachPartition > 0)
 
+    val baseData = Source.fromInputStream(this.getClass.getClassLoader.getResourceAsStream(tableSourcePath)).mkString
 
-    val reader = new BufferedReader(new InputStreamReader(this.getClass.getClassLoader.getResourceAsStream(tableSourcePath)))
-    val buffer = new StringBuffer()
-    var line = ""
-    while ( {
-      line = reader.readLine
-      line != null
-    }) {
-      buffer.append(line)
-    }
-    reader.close()
-    val baseData = buffer.toString
 
     println(baseData)
     val seq = for (_ <- 0 until partitionNumber) yield baseData
