@@ -140,8 +140,8 @@ object AllSQL {
                |        FROM ods_pdm_order_operate
                |        WHERE
                |
-               |                 get_json_object(data_col,'$.instData.instParties\[0].code') != '890001'
-               |                and get_json_object(data_col,'$.instData.instParties\[0].type') != 'CUSTORG'
+               |                 get_json_object(data_col,'$.instData.instParties\[0].code') = '890001'
+               |                and get_json_object(data_col,'$.instData.instParties\[0].type') = 'CUSTORG'
                |	) t1
                |	LEFT OUTER JOIN (
                |        SELECT
@@ -152,12 +152,12 @@ object AllSQL {
                |	ON t1.ip_id = t2.ip_id
                |	WHERE t1.ip_id is null
                |                or t2.ip_id is null
-               |                or t1.ip_role_id != t2.ip_role_id
-               |                or t1.inst_code != t2.inst_code
-               |                or t1.in_acct_no != t2.in_acct_no
-               |                or t1.in_acct_type != t2.in_acct_tp
-               |                or t1.out_acct_no != t2.out_acct_no
-               |                or t1.out_acct_type != t2.out_acct_tp""".stripMargin
+               |                or t1.ip_role_id = t2.ip_role_id
+               |                or t1.inst_code = t2.inst_code
+               |                or t1.in_acct_no = t2.in_acct_no
+               |                or t1.in_acct_type = t2.in_acct_tp
+               |                or t1.out_acct_no = t2.out_acct_no
+               |                or t1.out_acct_type = t2.out_acct_tp""".stripMargin
 
 
   val sql3 = """select
