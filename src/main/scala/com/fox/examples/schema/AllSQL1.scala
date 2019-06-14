@@ -77,7 +77,7 @@ object AllSQL1 {
 
   val sql10 =
     """
-      |select ts,host_name,node_name,full_parent_name,item_id,item_name,
+      |select ts,host_name,full_parent_name,item_id,item_name,
       |avg(get_json_object(value,'$.cpu')) cpu_avg,
       |avg(get_json_object(value,'$.mem')) mem_avg,
       |avg(get_json_object(value,'$.load1')) load1_avg,
