@@ -78,11 +78,11 @@ object AllSQL1 {
   val sql10 =
     """
       |select ts,host_name,full_parent_name,item_id,item_name,
-      |avg(get_json_object(value,'$.cpu')) cpu_avg,
-      |avg(get_json_object(value,'$.mem')) mem_avg,
-      |avg(get_json_object(value,'$.load1')) load1_avg,
-      |sum(get_json_object(value,'$.nginx_qps')) nginx_qps_sum,
-      |avg(get_json_object(value,'$.nginx_rt')) nginx_rt_avg
+      |get_json_object(value,'$.cpu') cpu_avg,
+      |get_json_object(value,'$.mem')mem_avg,
+      |get_json_object(value,'$.load1')load1_avg,
+      |get_json_object(value,'$.nginx_qps') nginx_qps_sum,
+      |get_json_object(value,'$.nginx_rt') nginx_rt_avg
       |from odps_gongxiang_monitor_data
     """.stripMargin
 
