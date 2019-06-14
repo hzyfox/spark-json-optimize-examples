@@ -282,7 +282,7 @@ object AllSQL {
                |	        a.id as workflow_id
                |	        from cms_ces_generic_review_df a
                |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = GET_JSON_OBJECT(b.data, '$.id')
+               |	        on a.id = 1111111
                |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
                |
                |	        union all
@@ -296,7 +296,7 @@ object AllSQL {
                |	        a.id as workflow_id
                |	        from cms_ces_generic_review_df a
                |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = GET_JSON_OBJECT(b.data, '$.id')
+               |	        on a.id = 1
                |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
                |	    ) a""".stripMargin
 }
