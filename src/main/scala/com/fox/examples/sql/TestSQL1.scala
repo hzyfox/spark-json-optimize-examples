@@ -50,6 +50,7 @@ object TestSQL1 {
         }
         et = new Date().getTime
         println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
+        spark.sql(AllSQLs(n-7)).show(10)
       case t =>
         throw new IllegalArgumentException(s"illegal number: $t")
     }
