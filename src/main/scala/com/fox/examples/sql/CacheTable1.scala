@@ -36,7 +36,8 @@ object CacheTable1 {
     assert(filePath != null)
     val splitter = "####"
     Source.fromInputStream(this.getClass.getClassLoader
-      .getResourceAsStream(filePath)).getLines().map(line => {
+      .getResourceAsStream(filePath)).getLines().filter(_.nonEmpty).map(line => {
+      println(s"=================================$line=======================================")
       val jsonPathInfoArr = line.split(",")
       val dbName = jsonPathInfoArr(0)
       val tableName = jsonPathInfoArr(1)
@@ -51,7 +52,7 @@ object CacheTable1 {
       val sql = new StringBuilder
       sql.append(s"get_json_object(${pathArrs(0)}, '$$.${pathArrs(1)}') as $alias")
       iter.foreach(path => {
-        val pathArrs = fullPath.split(splitter)
+        val pathArrs = path.split(splitter)
         val alias = s"${pathArrs(0)}_${pathArrs(1)}".replace(".", "_").replaceAll("\\[|\\]", "")
         sql.append(s",get_json_object(${pathArrs(0)}, '$$.${pathArrs(1)}') as $alias")
       })

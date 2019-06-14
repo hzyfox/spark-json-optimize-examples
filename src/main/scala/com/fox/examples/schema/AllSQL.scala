@@ -140,8 +140,8 @@ object AllSQL {
                |        FROM ods_pdm_order_operate
                |        WHERE
                |
-               |                 get_json_object(data_col,'$.instData.instParties\[0].code') != '890001'
-               |                and get_json_object(data_col,'$.instData.instParties\[0].type') != 'CUSTORG'
+               |                 get_json_object(data_col,'$.instData.instParties\[0].code') = '890001'
+               |                and get_json_object(data_col,'$.instData.instParties\[0].type') = 'CUSTORG'
                |	) t1
                |	LEFT OUTER JOIN (
                |        SELECT
@@ -152,12 +152,12 @@ object AllSQL {
                |	ON t1.ip_id = t2.ip_id
                |	WHERE t1.ip_id is null
                |                or t2.ip_id is null
-               |                or t1.ip_role_id != t2.ip_role_id
-               |                or t1.inst_code != t2.inst_code
-               |                or t1.in_acct_no != t2.in_acct_no
-               |                or t1.in_acct_type != t2.in_acct_tp
-               |                or t1.out_acct_no != t2.out_acct_no
-               |                or t1.out_acct_type != t2.out_acct_tp""".stripMargin
+               |                or t1.ip_role_id = t2.ip_role_id
+               |                or t1.inst_code = t2.inst_code
+               |                or t1.in_acct_no = t2.in_acct_no
+               |                or t1.in_acct_type = t2.in_acct_tp
+               |                or t1.out_acct_no = t2.out_acct_no
+               |                or t1.out_acct_type = t2.out_acct_tp""".stripMargin
 
 
   val sql3 = """select
@@ -259,12 +259,12 @@ object AllSQL {
                |	                ,get_json_object(json_str, '$.baseinfo.from_field.navi') as navi_source
                |	                ,get_json_object(json_str, '$.baseinfo.from_field.x') as xy_source
                |	                ,case
-               |	                        when get_json_object(json_str,'$.update_flag') != 'd' or get_json_object(json_str,'$.merged_status') = '1' then get_json_object(json_str, '$.baseinfo.from.src_type')
+               |	                        when get_json_object(json_str,'$.update_flag') = 'd' or get_json_object(json_str,'$.merged_status') = '1' then get_json_object(json_str, '$.baseinfo.from.src_type')
                |	                        else get_json_object(json_str, '$.baseinfo.from_field.opt_type')
                |	                 end as update_flag_source
                |	        FROM s_gd_poi_base
                |
-               |	) bb on aa.poiid =bb.poiid""".stripMargin
+               |	) bb on aa.update_flag_source !=aa.update_flag_source""".stripMargin
 
 
   val sql6 = """select review_type,
@@ -282,21 +282,7 @@ object AllSQL {
                |	        a.id as workflow_id
                |	        from cms_ces_generic_review_df a
                |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = GET_JSON_OBJECT(b.data, '$.id')
-               |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
-               |
-               |	        union all
-               |
-               |	         select
-               |	        'inreview_edit' as review_type,
-               |	        a.resource_id,
-               |	        a.task_type,
-               |	        case when a.task_type != 'expire_tel_around' then GET_JSON_OBJECT(b.data, '$.result.poi_status.verify')
-               |	        else '' end as result_tag,
-               |	        a.id as workflow_id
-               |	        from cms_ces_generic_review_df a
-               |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = GET_JSON_OBJECT(b.data, '$.id')
+               |	        on a.id = GET_JSON_OBJECT(b.data, '$.result.poi_status.verify')
                |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
                |	    ) a""".stripMargin
 }
