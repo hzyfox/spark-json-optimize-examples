@@ -282,21 +282,7 @@ object AllSQL {
                |	        a.id as workflow_id
                |	        from cms_ces_generic_review_df a
                |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = 1111111
-               |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
-               |
-               |	        union all
-               |
-               |	         select
-               |	        'inreview_edit' as review_type,
-               |	        a.resource_id,
-               |	        a.task_type,
-               |	        case when a.task_type != 'expire_tel_around' then GET_JSON_OBJECT(b.data, '$.result.poi_status.verify')
-               |	        else '' end as result_tag,
-               |	        a.id as workflow_id
-               |	        from cms_ces_generic_review_df a
-               |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = 1
+               |	        on a.id = GET_JSON_OBJECT(b.data, '$.result.poi_status.verify')
                |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
                |	    ) a""".stripMargin
 }
