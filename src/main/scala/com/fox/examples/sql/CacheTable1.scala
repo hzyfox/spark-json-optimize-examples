@@ -37,6 +37,7 @@ object CacheTable1 {
     val splitter = "####"
     Source.fromInputStream(this.getClass.getClassLoader
       .getResourceAsStream(filePath)).getLines().map(line => {
+      println(s"=================================$line=======================================")
       val jsonPathInfoArr = line.split(",")
       val dbName = jsonPathInfoArr(0)
       val tableName = jsonPathInfoArr(1)
