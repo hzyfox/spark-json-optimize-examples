@@ -7,7 +7,6 @@ default,dsp_cp_sdk_events,content,envInfo
 default,dsp_cp_sdk_events,content,src
 default,wifi_vac_log_internal,jsondata,ap.ap_mac
 default,wifi_vac_log_internal,jsondata,ap.sw_version
-default,wifi_vac_log_internal,jsondata,ap.sw_version
 default,wifi_vac_log_internal,jsondata,ap.serial
 default,wifi_vac_log_internal,jsondata,ap.ap_model
 default,wifi_vac_log_internal,jsondata,ap.sta_cnt
