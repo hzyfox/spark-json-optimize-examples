@@ -88,10 +88,10 @@ case class s_generic_task_edit_result_json(data: String) //6.1
   * ,coalesce(get_json_object(content, '$.params'), '') as params
   * ,coalesce(get_json_object(content, '$.envInfo'), '') as envinfo
   * ,coalesce(get_json_object(content, '$.src'), '') as src
-  * from    (
-  * select  split_part(content, '`', 5) as content
-  * from    aligames_dc.dsp_cp_sdk_events
-  * ) t1
+  * from
+  *
+  * dsp_cp_sdk_events
+  *
   *
   * seraaaenaae=saara-uaaa111_11111_a1_t11`aast=saara-uaaa111`aaaaa=e1111`at=1111111111111`{"ts":1111111111111,"aaaaa":"111111","eaent":"saa.user.anlane","aaraas":{"aaaauntaa":"a11fe11111a1a1a1111a1111e1a1a111"},"envInfo":{"aeaanfa":{"uuaa":"11aa1111-111E-1111-11a1-1111aa1a1a11","arana":"aaale","net":"aafa","aeaaaeaa":"1111111a-Ea11-1aaa-1a11-1111aa1aEa11","fr":"aaa 11.1.1","as":"aas","aaf":"aaale","lanaatuae":"1.111111","raaaaae":"1111","latatuae":"1.111111","tatalaaae":"11111","aaeratar":"你你你你","lana":"aa-aans-aa","taaeaane":"aaa+11:11","aaael":"aaaane 1s","aauntra":"aa","res":"1111*111","aa":"111.111.111.111"},"runaa":"11aa1111-111E-1111-11a1-1111aa1a1a11"},"sra":"aarussaa"}
   *
