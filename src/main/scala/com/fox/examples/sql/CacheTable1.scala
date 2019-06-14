@@ -62,8 +62,10 @@ object CacheTable1 {
       val dbName = dbAndTableName(0)
       val tableName = dbAndTableName(1)
       val sql = kvs._2
+      spark.sql(s"drop table if exists ${dbName}_${tableName}")
       println(s"select $sql from $dbName.$tableName")
-      spark.sql(s"select $sql from $dbName.$tableName").write.format("hive").option("fileFormat", "orc").mode("append").saveAsTable(s"${dbName}_$tableName")
+      spark.sql(s"select $sql from $dbName.$tableName").write.format("hive").option("fileFormat", "orc").mode("overwrite").saveAsTable(s"${dbName}_$tableName")
+      println(s"select * from ${dbName}_$tableName limit 1")
       spark.sql(s"select * from ${dbName}_$tableName limit 1").show()
     })
 
