@@ -61,7 +61,7 @@ object AllSQL1 {
       |GET_JSON_OBJECT(jsondata,"$.ap.wan_type") AS wan_type,
       |GET_JSON_OBJECT(jsondata,"$.ap.wan_recv") AS wan_recv,
       |GET_JSON_OBJECT(jsondata,"$.ap.wan_sent") AS wan_sent,
-      |GET_JSON_OBJECT(jsondata,"$.wan_ip") AS wan_ip,
+      |GET_JSON_OBJECT(jsondata,"$.wan_ip") AS wan_ip
       |FROM wifi_vac_log_internal
     """.stripMargin
 
