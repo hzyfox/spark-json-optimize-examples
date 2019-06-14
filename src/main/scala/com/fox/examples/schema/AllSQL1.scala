@@ -32,8 +32,7 @@ object AllSQL1 {
 
   val sql8 =
     """
-      |SELECT
-      |loglevel AS notify_status,
+      |SELECT loglevel AS notify_status,
       |GET_JSON_OBJECT(jsondata,"$.ap.ap_mac") AS ap_mac,
       |GET_JSON_OBJECT(jsondata,"$.ap.sw_version") AS version,
       |GET_JSON_OBJECT(jsondata,"$.ap.serial") AS serial,
@@ -68,8 +67,7 @@ object AllSQL1 {
 
   val sql9 =
     """
-      |select
-      |seedurl as ip
+      |select seedurl as ip
       |, get_json_object(description, '$.weakUsername') as u
       |, get_json_object(description, '$.weakPassword') as p
       |from
@@ -79,8 +77,7 @@ object AllSQL1 {
 
   val sql10 =
     """
-      |select
-      |ts,host_name,node_name,full_parent_name,item_id,item_name,
+      |select ts,host_name,node_name,full_parent_name,item_id,item_name,
       |avg(get_json_object(value,'$.cpu')) cpu_avg,
       |avg(get_json_object(value,'$.mem')) mem_avg,
       |avg(get_json_object(value,'$.load1')) load1_avg,
