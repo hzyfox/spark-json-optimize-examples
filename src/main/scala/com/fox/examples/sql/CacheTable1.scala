@@ -24,7 +24,6 @@ object CacheTable1 {
 
     val spark = SparkSession
       .builder()
-      .master("local")
       .config("spark.sql.catalogImplementation", "hive")
       .config("spark.sql.json.writeCache", true)
       .enableHiveSupport()

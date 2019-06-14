@@ -91,8 +91,6 @@ case class s_generic_task_edit_result_json(data: String) //6.1
   * from    (
   * select  split_part(content, '`', 5) as content
   * from    aligames_dc.dsp_cp_sdk_events
-  * where   dt = '20190101'
-  * and     hour = '11'
   * ) t1
   *
   * seraaaenaae=saara-uaaa111_11111_a1_t11`aast=saara-uaaa111`aaaaa=e1111`at=1111111111111`{"ts":1111111111111,"aaaaa":"111111","eaent":"saa.user.anlane","aaraas":{"aaaauntaa":"a11fe11111a1a1a1111a1111e1a1a111"},"envInfo":{"aeaanfa":{"uuaa":"11aa1111-111E-1111-11a1-1111aa1a1a11","arana":"aaale","net":"aafa","aeaaaeaa":"1111111a-Ea11-1aaa-1a11-1111aa1aEa11","fr":"aaa 11.1.1","as":"aas","aaf":"aaale","lanaatuae":"1.111111","raaaaae":"1111","latatuae":"1.111111","tatalaaae":"11111","aaeratar":"你你你你","lana":"aa-aans-aa","taaeaane":"aaa+11:11","aaael":"aaaane 1s","aauntra":"aa","res":"1111*111","aa":"111.111.111.111"},"runaa":"11aa1111-111E-1111-11a1-1111aa1a1a11"},"sra":"aarussaa"}
@@ -121,6 +119,14 @@ case class dsp_cp_sdk_events(content: String)
   * GET_JSON_OBJECT(t1.jsondata,"$.ap.effect_md5") AS effect_md5,
   * GET_JSON_OBJECT(t1.jsondata,"$.ap.ota_uuid") AS ota_uuid,
   * GET_JSON_OBJECT(t1.jsondata,"$.ap.sync") AS sync_status,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[0].radio_index") AS radio_a,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[0].channel") AS channel_a,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[0].channel_usage") AS utilities_a,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[0].noise") AS noise_a,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[1].radio_index") AS radio_b,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[1].channel") AS channel_b,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[1].channel_usage") AS utilities_b,
+  * GET_JSON_OBJECT(t1.jsondata,"$.ap.radio[1].noise") AS noise_b,
   * GET_JSON_OBJECT(t1.jsondata,"$.ap.link_speed") AS link_speed,
   * GET_JSON_OBJECT(t1.jsondata,"$.ap.public_ip") AS public_ip,
   * GET_JSON_OBJECT(t1.jsondata,"$.ap.wan_type") AS wan_type,
