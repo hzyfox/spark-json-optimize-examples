@@ -206,20 +206,10 @@ object AllSQL {
                |	                aa.name,
                |	                aa.update_flag as newupdate_flag,
                |	                aa.update_flag_source as newupdate_flagsource,
-               |	                case
-               |	                        when aa.update_flag ='d' then "删除"
-               |	                        when (aa.update_flag = 'u' or aa.update_flag ='a') and (aa.update_flag = 'u' or aa.update_flag ='a') then "保持有"
-               |	                        when aa.update_flag = 'd'  then "保持删除"
-               |	                        when aa.update_flag = 'u'  then "二次上线"
-               |	                else "错误"
-               |	                end description,
-               |	                case
-               |	                        when aa.update_flag ='d'  then 1
-               |	                        when (aa.update_flag = 'u' or aa.update_flag ='a')   then 3
-               |	                        when aa.update_flag = 'd'  then 4
-               |	                        when aa.update_flag = 'u'  then 5
-               |	                else 6
-               |	                end description_code
+               |                  aa.address,
+               |                  aa.name_source,
+               |                  aa.address_source,
+               |                  aa.navi_source
                |	from
                |	(
                |	        SELECT poiid
