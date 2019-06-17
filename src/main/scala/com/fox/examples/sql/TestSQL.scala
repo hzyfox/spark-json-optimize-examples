@@ -59,6 +59,7 @@ object TestSQL {
         var st = new Date().getTime
         val df = spark.sql(AllSQL.sql2)
         df.foreachPartition(iter =>println(s"iter size:${iter.size}") )
+        df.explain()
         var et = new Date().getTime
         df.show(10)
         println(s"TestSQL 2: First execution time = ${(et-st)/1000.0}s ")
