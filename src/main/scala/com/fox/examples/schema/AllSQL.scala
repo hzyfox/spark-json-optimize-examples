@@ -205,23 +205,23 @@ object AllSQL {
   val sql5 = """select aa.poiid,
                |	                aa.name,
                |	                aa.update_flag as newupdate_flag,
-               |	                bb.update_flag as oldupdate_flag,
+               |
                |	                aa.update_flag_source as newupdate_flagsource,
-               |	                bb.update_flag_source as oldupdate_flagsource,
+               |
                |	                case
-               |	                        when aa.update_flag ='d' and (bb.update_flag ='a' or bb.update_flag ='u') then "删除"
-               |	                        when bb.update_flag  is null and aa.update_flag is not null then "新增"
+               |	                        when aa.update_flag ='d' then "删除"
+               |
                |	                        when (aa.update_flag = 'u' or aa.update_flag ='a') and (aa.update_flag = 'u' or aa.update_flag ='a') then "保持有"
-               |	                        when aa.update_flag = 'd' and bb.update_flag = 'd' then "保持删除"
-               |	                        when aa.update_flag = 'u' and bb.update_flag = 'd' then "二次上线"
+               |	                        when aa.update_flag = 'd'  then "保持删除"
+               |	                        when aa.update_flag = 'u'  then "二次上线"
                |	                else "错误"
                |	                end description,
                |	                case
-               |	                        when aa.update_flag ='d' and (bb.update_flag ='a' or bb.update_flag ='u') then 1
-               |	                        when bb.update_flag  is null and aa.update_flag is not null then 2
-               |	                        when (aa.update_flag = 'u' or aa.update_flag ='a') and bb.update_flag  = 'u' then 3
-               |	                        when aa.update_flag = 'd' and bb.update_flag = 'd' then 4
-               |	                        when aa.update_flag = 'u' and bb.update_flag = 'd' then 5
+               |	                        when aa.update_flag ='d'  then 1
+               |
+               |	                        when (aa.update_flag = 'u' or aa.update_flag ='a')   then 3
+               |	                        when aa.update_flag = 'd'  then 4
+               |	                        when aa.update_flag = 'u'  then 5
                |	                else 6
                |	                end description_code
                |	from
@@ -243,28 +243,7 @@ object AllSQL {
                |	                 end as update_flag_source
                |	        FROM s_gd_poi_base
                |
-               |	) aa
-               |	full outer join
-               |	(
-               |	        SELECT poiid
-               |	                , get_json_object(json_str,'$.update_flag') as update_flag
-               |	                , get_json_object(json_str,'$.merged_status') as merged_status
-               |	                , get_json_object(json_str,'$.baseinfo.name') as name
-               |	                , get_json_object(json_str,'$.baseinfo.address') as address
-               |	                , get_json_object(json_str,'$.baseinfo.x') as x
-               |	                , get_json_object(json_str,'$.baseinfo.y') as y
-               |
-               |	                ,get_json_object(json_str, '$.baseinfo.from_field.name')  as name_source
-               |	                ,get_json_object(json_str, '$.baseinfo.from_field.address') as address_source
-               |	                ,get_json_object(json_str, '$.baseinfo.from_field.navi') as navi_source
-               |	                ,get_json_object(json_str, '$.baseinfo.from_field.x') as xy_source
-               |	                ,case
-               |	                        when get_json_object(json_str,'$.update_flag') = 'd' or get_json_object(json_str,'$.merged_status') = '1' then get_json_object(json_str, '$.baseinfo.from.src_type')
-               |	                        else get_json_object(json_str, '$.baseinfo.from_field.opt_type')
-               |	                 end as update_flag_source
-               |	        FROM s_gd_poi_base
-               |
-               |	) bb on aa.update_flag_source !=aa.update_flag_source""".stripMargin
+               |	) aa""".stripMargin
 
 
   val sql6 = """select review_type,
