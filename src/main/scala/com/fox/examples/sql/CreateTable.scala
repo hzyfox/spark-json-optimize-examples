@@ -51,6 +51,7 @@ object CreateTable {
 
     val partitionNumber = Integer.parseInt(commandLine.getOptionValue("pn"))
     val recordEachPartition = Integer.parseInt(commandLine.getOptionValue("rep"))
+    val daName = commandLine.getOptionValue("db")
 
     assert(tableSourcePath != null && tableName != null && partitionNumber >0 && recordEachPartition >0)
 
@@ -99,7 +100,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case "ods_lnia_org_info" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
@@ -118,7 +119,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case "ods_parm_d" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
@@ -136,7 +137,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case "ods_parm_d2" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
@@ -148,7 +149,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case "s_gd_poi_base" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
@@ -160,7 +161,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case "cms_ces_generic_review_df" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
@@ -172,7 +173,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case "s_generic_task_edit_result_json" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
@@ -184,7 +185,7 @@ object CreateTable {
           }
           buffer.iterator
         }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
       case _=> println(s"file not found:$tableName")
     }
