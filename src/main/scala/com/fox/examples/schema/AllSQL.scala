@@ -143,13 +143,6 @@ object AllSQL {
                |                 get_json_object(data_col,'$.instData.instParties\[0].code') != '890001'
                |                and get_json_object(data_col,'$.instData.instParties\[0].type') != 'CUSTORG'
                |	) t1
-               |	LEFT OUTER JOIN (
-               |        SELECT
-               |                inst_code, ip_id, ip_role_id, in_acct_no, in_acct_tp, out_acct_no, out_acct_tp
-               |        FROM ods_lnia_org_info
-               |
-               |	) t2
-               |	ON t1.ip_id = t2.ip_id
                |	""".stripMargin
 
 
@@ -199,10 +192,10 @@ object AllSQL {
                |	                aa.name,
                |	                aa.update_flag as newupdate_flag,
                |	                aa.update_flag_source as newupdate_flagsource,
-               |                  aa.address,
-               |                  aa.name_source,
-               |                  aa.address_source,
-               |                  aa.navi_source
+               |                 aa.address,
+               |                 aa.name_source,
+               |                 aa.address_source,
+               |                 aa.navi_source
                |	from
                |	(
                |	        SELECT poiid
