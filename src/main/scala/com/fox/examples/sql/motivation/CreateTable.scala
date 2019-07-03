@@ -14,7 +14,6 @@ object CreateTable {
     val spark = SparkSession
       .builder()
       .config("spark.sql.catalogImplementation", "hive")
-      .config("spark.master","local")
       .enableHiveSupport()
       .getOrCreate()
     import spark.implicits._

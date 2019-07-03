@@ -54,11 +54,73 @@
                 <scope.value>compile</scope.value>
             </properties>
         </profile>
+
+        <profile>
+            <id>data</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.1</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <workingDirectory>src/main/python/nobench</workingDirectory>
+                                    <executable>python</executable>
+                                    <arguments>
+                                        <argument>check_version.py</argument>
+                                    </arguments>
+                                </configuration>
+                                <id>check_version</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <configuration>
+                                    <executable>pip</executable>
+                                    <arguments>
+                                        <argument>install</argument>
+                                        <argument>nltk</argument>
+                                    </arguments>
+                                </configuration>
+                                <id>pip_install</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <configuration>
+                                    <executable>python</executable>
+                                    <workingDirectory>src/main/python/nobench</workingDirectory>
+                                    <arguments>
+                                        <argument>nobench_gendata.py</argument>
+                                        <argument>-n</argument>
+                                        <argument>${object.num}</argument>
+                                        <argument>-o</argument>
+                                        <argument>${project.basedir}/nobench_data.json</argument>
+                                    </arguments>
+                                </configuration>
+                                <id>python_build</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+
     </profiles>
 
-
     <!-- https://mvnrepository.com/artifact/com.github.scopt/scopt -->
-
 
     <build>
         <resources>
@@ -93,64 +155,21 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <configuration>
-                            <workingDirectory>src/main/python/nobench</workingDirectory>
-                            <executable>python</executable>
-                            <arguments>
-                                <argument>check_version.py</argument>
-                            </arguments>
-                        </configuration>
-                        <id>check_version</id>
-                        <phase>generate-resources</phase>
+                        <id>show-profiles</id>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>exec</goal>
-                        </goals>
-
-                    </execution>
-                    <execution>
-                        <configuration>
-                            <executable>pip</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>nltk</argument>
-                            </arguments>
-                        </configuration>
-                        <id>pip_install</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
+                            <goal>active-profiles</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <configuration>
-                            <executable>python</executable>
-                            <workingDirectory>src/main/python/nobench</workingDirectory>
-                            <arguments>
-                                <argument>nobench_gendata.py</argument>
-                                <argument>-n</argument>
-                                <argument>${object.num}</argument>
-                                <argument>-o</argument>
-                                <argument>${project.basedir}/nobench_data.json</argument>
-                            </arguments>
-                        </configuration>
-                        <id>python_build</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-
                 </executions>
             </plugin>
-
         </plugins>
-
-</build>
-
+    </build>
 </project>

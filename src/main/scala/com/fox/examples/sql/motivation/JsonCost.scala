@@ -31,7 +31,6 @@ object JsonCost {
 
     val spark = SparkSession
       .builder()
-      .master("local")
       .config("spark.sql.catalogImplementation", "hive")
       .config("spark.sql.json.optimize", optimize)
       .enableHiveSupport()
