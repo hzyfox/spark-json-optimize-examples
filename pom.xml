@@ -136,9 +136,8 @@
                                 <argument>-n</argument>
                                 <argument>${object.num}</argument>
                                 <argument>-o</argument>
-                                <argument>${project.basedir}/src/main/scala/resources/nobench_data.json</argument>
+                                <argument>${project.basedir}/nobench_data.json</argument>
                             </arguments>
-
                         </configuration>
                         <id>python_build</id>
                         <phase>generate-resources</phase>
@@ -146,6 +145,7 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
+
                 </executions>
             </plugin>
 

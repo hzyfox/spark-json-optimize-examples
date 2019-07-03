@@ -115,4 +115,22 @@ object AllSQL1 {
     """.stripMargin
 
 
+  val testSQL1 =
+    """
+      |SELECT get_json_object(nobench_json,'$.str1'), get_json_object(nobench_json,'$.num') FROM NoBench
+    """.stripMargin
+
+  val testSQL2 =
+    """
+      |SELECT COUNT(*), get_json_object(nobench_json,'$.thousandth') as thousandth FROM NoBench WHERE get_json_object(nobench_json,'$.num') BETWEEN
+      |1 AND 10000 GROUP BY thousandth
+    """.stripMargin
+
+  val testSQL3 =
+    """
+      |select * from (SELECT get_json_object(nobench_json, '$.num') as num, get_json_object(nobench_json, '$.nested_obj.str') as str FROM NoBench) left1 inner join
+      |(SELECT get_json_object(nobench_json, '$.str1') as str1 from NoBench) right1 ON (left1.str =
+      |right1.str1) WHERE left1.num BETWEEN 1 AND 10000
+    """.stripMargin
+
 }

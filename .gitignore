@@ -3,6 +3,7 @@ venv/
 .idea/
 *.iws
 *.ipr
+*.json
 target/
 derby.log
 spark-warehouse/
