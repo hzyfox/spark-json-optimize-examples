@@ -59,6 +59,7 @@ object TestSQL {
         var st = new Date().getTime
         val df = spark.sql(AllSQL.sql2)
         df.foreachPartition(iter =>println(s"iter size:${iter.size}") )
+        df.explain()
         var et = new Date().getTime
         df.show(10)
         println(s"TestSQL 2: First execution time = ${(et-st)/1000.0}s ")
@@ -95,7 +96,9 @@ object TestSQL {
         println(s"TestSQL 4:${cycleNumber} times average time = ${(et-st)/(cycleNumber*1000.0)}s")
       case "5" =>
         var st = new Date().getTime
-        spark.sql(AllSQL.sql5).foreachPartition(iter => println(s"iter size:${iter.size}") )
+        val df = spark.sql(AllSQL.sql5)
+          df.foreachPartition(iter => println(s"iter size:${iter.size}") )
+        df.explain()
         var et = new Date().getTime
         println(s"TestSQL 5: First execution time = ${(et-st)/1000.0}s ")
 

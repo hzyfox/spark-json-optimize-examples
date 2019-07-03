@@ -140,24 +140,10 @@ object AllSQL {
                |        FROM ods_pdm_order_operate
                |        WHERE
                |
-               |                 get_json_object(data_col,'$.instData.instParties\[0].code') = '890001'
-               |                and get_json_object(data_col,'$.instData.instParties\[0].type') = 'CUSTORG'
+               |                 get_json_object(data_col,'$.instData.instParties\[0].code') != '890001'
+               |                and get_json_object(data_col,'$.instData.instParties\[0].type') != 'CUSTORG'
                |	) t1
-               |	LEFT OUTER JOIN (
-               |        SELECT
-               |                inst_code, ip_id, ip_role_id, in_acct_no, in_acct_tp, out_acct_no, out_acct_tp
-               |        FROM ods_lnia_org_info
-               |
-               |	) t2
-               |	ON t1.ip_id = t2.ip_id
-               |	WHERE t1.ip_id is null
-               |                or t2.ip_id is null
-               |                or t1.ip_role_id = t2.ip_role_id
-               |                or t1.inst_code = t2.inst_code
-               |                or t1.in_acct_no = t2.in_acct_no
-               |                or t1.in_acct_type = t2.in_acct_tp
-               |                or t1.out_acct_no = t2.out_acct_no
-               |                or t1.out_acct_type = t2.out_acct_tp""".stripMargin
+               |	""".stripMargin
 
 
   val sql3 = """select
@@ -205,25 +191,11 @@ object AllSQL {
   val sql5 = """select aa.poiid,
                |	                aa.name,
                |	                aa.update_flag as newupdate_flag,
-               |
                |	                aa.update_flag_source as newupdate_flagsource,
-               |
-               |	                case
-               |	                        when aa.update_flag ='d' then "删除"
-               |
-               |	                        when (aa.update_flag = 'u' or aa.update_flag ='a') and (aa.update_flag = 'u' or aa.update_flag ='a') then "保持有"
-               |	                        when aa.update_flag = 'd'  then "保持删除"
-               |	                        when aa.update_flag = 'u'  then "二次上线"
-               |	                else "错误"
-               |	                end description,
-               |	                case
-               |	                        when aa.update_flag ='d'  then 1
-               |
-               |	                        when (aa.update_flag = 'u' or aa.update_flag ='a')   then 3
-               |	                        when aa.update_flag = 'd'  then 4
-               |	                        when aa.update_flag = 'u'  then 5
-               |	                else 6
-               |	                end description_code
+               |                 aa.address,
+               |                 aa.name_source,
+               |                 aa.address_source,
+               |                 aa.navi_source
                |	from
                |	(
                |	        SELECT poiid
@@ -231,14 +203,11 @@ object AllSQL {
                |	                , get_json_object(json_str,'$.merged_status') as merged_status
                |	                , get_json_object(json_str,'$.baseinfo.name') as name
                |	                , get_json_object(json_str,'$.baseinfo.address') as address
-               |	                , get_json_object(json_str,'$.baseinfo.x') as x
-               |	                , get_json_object(json_str,'$.baseinfo.y') as y
                |	                ,get_json_object(json_str, '$.baseinfo.from_field.name')  as name_source
                |	                ,get_json_object(json_str, '$.baseinfo.from_field.address') as address_source
                |	                ,get_json_object(json_str, '$.baseinfo.from_field.navi') as navi_source
-               |	                ,get_json_object(json_str, '$.baseinfo.from_field.x') as xy_source
                |	                ,case
-               |	                        when get_json_object(json_str,'$.update_flag') = 'd' or get_json_object(json_str,'$.merged_status') = '1' then get_json_object(json_str, '$.baseinfo.from.src_type')
+               |	                        when get_json_object(json_str,'$.update_flag') != 'd' or get_json_object(json_str,'$.merged_status') != '1' then get_json_object(json_str, '$.baseinfo.from.src_type')
                |	                        else get_json_object(json_str, '$.baseinfo.from_field.opt_type')
                |	                 end as update_flag_source
                |	        FROM s_gd_poi_base
@@ -246,22 +215,10 @@ object AllSQL {
                |	) aa""".stripMargin
 
 
-  val sql6 = """select review_type,
-               |	    resource_id,
-               |	    task_type,
-               |	    result_tag,
-               |	    RANK() OVER(PARTITION BY review_type, resource_id, task_type ORDER BY workflow_id asc) AS result_order
-               |	    from (
+  val sql6 = """
                |	        select
-               |	        'edit' as review_type,
-               |	        a.resource_id,
-               |	        a.task_type,
-               |	        case when a.task_type != 'expire_tel_around' then GET_JSON_OBJECT(b.data, '$.result.poi_status.verify')
-               |	        else '' end as result_tag,
-               |	        a.id as workflow_id
-               |	        from cms_ces_generic_review_df a
-               |	        left outer join s_generic_task_edit_result_json b
-               |	        on a.id = GET_JSON_OBJECT(b.data, '$.result.poi_status.verify')
-               |	        where task_type not in ('expire_pic_verify','expire_tel_self','expire_tel_around','expire_web')
-               |	    ) a""".stripMargin
+               |	        GET_JSON_OBJECT(b.data, '$.result.poi_status.verify') as result_tag
+               |	        from
+               |	        s_generic_task_edit_result_json b
+               |	   """.stripMargin
 }

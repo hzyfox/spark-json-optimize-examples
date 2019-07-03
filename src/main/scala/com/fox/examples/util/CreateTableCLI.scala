@@ -29,6 +29,10 @@ object CreateTableCLI extends CommonCLI {
     sourceFile.setArgName("sourceFile")
     sourceFile.setType(classOf[String])
 
+    val dbName =  new Option("db","dbName",true,"dbName")
+    dbName.setArgName("dbName")
+    dbName.setType(classOf[String])
+
     val partitionNumber = new Option("pn", "partitionNumber", true, "partition Number")
     partitionNumber.setArgName("partitionNumber")
     partitionNumber.setType(classOf[Int])
@@ -62,6 +66,7 @@ object CreateTableCLI extends CommonCLI {
 
     options.addOption(help)
     options.addOption(sourceFile)
+    options.addOption(dbName)
     options.addOption(tableName)
     options.addOption(partitionNumber)
     options.addOption(recordEachPartition)
