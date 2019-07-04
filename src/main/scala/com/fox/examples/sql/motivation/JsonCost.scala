@@ -39,6 +39,7 @@ object JsonCost {
     sqlNumber match {
       case n if n >= 1 && n <= 3 =>
         spark.sql(AllSQLs(n - 1)).count()
+        spark.sql(AllSQLs(n-1)).count()
       case t =>
         throw new IllegalArgumentException(s"illegal number: $t")
     }
