@@ -38,18 +38,7 @@ object JsonCost {
     val AllSQLs = Array(AllSQL1.testSQL1, AllSQL1.testSQL2, AllSQL1.testSQL3)
     sqlNumber match {
       case n if n >= 1 && n <= 3 =>
-        var st = new Date().getTime
         spark.sql(AllSQLs(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
-        var et = new Date().getTime
-        println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
-
-        st = new Date().getTime
-        for (i <- 0 until cycleNumber) {
-          spark.sql(AllSQLs(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
-        }
-        et = new Date().getTime
-        println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-        spark.sql(AllSQLs(n-1)).show(10)
       case t =>
         throw new IllegalArgumentException(s"illegal number: $t")
     }
