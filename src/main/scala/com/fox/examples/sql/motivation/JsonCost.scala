@@ -38,7 +38,7 @@ object JsonCost {
     val AllSQLs = Array(AllSQL1.testSQL1, AllSQL1.testSQL2, AllSQL1.testSQL3)
     sqlNumber match {
       case n if n >= 1 && n <= 3 =>
-        spark.sql(AllSQLs(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+        spark.sql(AllSQLs(n - 1)).count()
       case t =>
         throw new IllegalArgumentException(s"illegal number: $t")
     }
