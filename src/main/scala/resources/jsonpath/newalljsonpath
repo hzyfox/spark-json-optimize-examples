@@ -2,9 +2,9 @@ default,nobench,nobench_json,str1
 default,nobench,nobench_json,num
 default,nobench,nobench_json,nested_obj.str1
 default,nobench,nobench_json,nested_obj.num
-default,nobench,nobench_json,sparse_110
-default,nobench,nobench_json,sparse_119
-default,nobench,nobench_json,sparse_120
+default,nobench,nobench_json,sparse_340
+default,nobench,nobench_json,sparse_341
+default,nobench,nobench_json,sparse_470
 default,nobench,nobench_json,dyn1
 default,nobench,nobench_json,thousandth
 default,nobench,nobench_json,str

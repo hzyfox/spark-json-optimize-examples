@@ -19,13 +19,13 @@ object PushDownSQL {
 
   val testSQL3 =
     """
-      |SELECT get_json_object(nobench_json,'$.sparse_110'), get_json_object(nobench_json,'$.sparse_119') FROM NoBench
+      |SELECT get_json_object(nobench_json,'$.sparse_340'), get_json_object(nobench_json,'$.sparse_341') FROM NoBench
     """.stripMargin
 
 
   val testSQL4 =
     """
-      |SELECT get_json_object(nobench_json,'$.sparse_110'), get_json_object(nobench_json,'$.sparse_120') FROM NoBench
+      |SELECT get_json_object(nobench_json,'$.sparse_340'), get_json_object(nobench_json,'$.sparse_470') FROM NoBench
     """.stripMargin
 
 
@@ -41,7 +41,7 @@ object PushDownSQL {
 
   val testSQl7 =
     """
-      |select * from nobench where get_json_object(nobench_json,'$.dyn1') between '10000' and '20000'
+      |select * from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000
     """.stripMargin
 
   val testSQL8 =
