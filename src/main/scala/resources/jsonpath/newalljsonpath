@@ -8,3 +8,4 @@ default,nobench,nobench_json,sparse_470
 default,nobench,nobench_json,dyn1
 default,nobench,nobench_json,thousandth
 default,nobench,nobench_json,str
+default,nobench,nobench_json,nested_arr[0]

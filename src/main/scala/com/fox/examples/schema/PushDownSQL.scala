@@ -29,6 +29,9 @@ object PushDownSQL {
     """.stripMargin
 
 
+  /***********************************分割线5-10都有过滤条件**********************************************/
+
+
   val testSQl5 =
     """
       |select * from nobench where get_json_object(nobench_json,'$.str1') = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
