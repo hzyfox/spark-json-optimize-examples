@@ -96,6 +96,10 @@ object PushDown {
             .config("hive.io.file.readcolumn.names", AllCol(n - 5))
             .enableHiveSupport()
             .getOrCreate()
+          print("***************************************")
+          print(AllSqls(n-1))
+          print("***************************************")
+
           spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
