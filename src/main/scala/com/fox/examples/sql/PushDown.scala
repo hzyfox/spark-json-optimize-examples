@@ -60,7 +60,7 @@ object PushDown {
     val sqlNumber = commandLine.getOptionValue("ssn").toInt
     val optimize = commandLine.getOptionValue("o").toBoolean
     val cycleNumber = commandLine.getOptionValue("cn").toInt
-    assert(sqlNumber != null && cycleNumber > 0)
+    assert(sqlNumber != null && cycleNumber >= 0)
 
     val AllCol = Array(col5, col6, col7, col8, col9, col10)
     val AllArg = Array(sarg_5, sarg_6, sarg_7, sarg_8, sarg_9, sarg_10)
