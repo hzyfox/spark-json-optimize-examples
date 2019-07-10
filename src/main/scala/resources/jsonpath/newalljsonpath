@@ -1,6 +1,7 @@
 default,nobench,nobench_json,str1
 default,nobench,nobench_json,num
 default,nobench,nobench_json,nested_obj.str1
+default,nobench,nobench_json,nested_obj.str
 default,nobench,nobench_json,nested_obj.num
 default,nobench,nobench_json,sparse_340
 default,nobench,nobench_json,sparse_341

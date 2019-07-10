@@ -75,17 +75,17 @@ object PushDown {
             .config("spark.sql.catalogImplementation", "hive")
             .enableHiveSupport()
             .getOrCreate()
-          spark.sql(AllSqls(n)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
           st = new Date().getTime
           for (i <- 0 until cycleNumber) {
-            spark.sql(AllSqls(n)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+            spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSqls(n)).show(10)
+          spark.sql(AllSqls(n-1)).show(10)
         case n if n >= 5 && n <= 10 =>
           var st = new Date().getTime
           val spark = SparkSession.builder()
@@ -96,17 +96,17 @@ object PushDown {
             .config("hive.io.file.readcolumn.names", AllCol(n - 5))
             .enableHiveSupport()
             .getOrCreate()
-          spark.sql(AllSqls(n)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
           st = new Date().getTime
           for (i <- 0 until cycleNumber) {
-            spark.sql(AllSqls(n)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+            spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSqls(n)).show(10)
+          spark.sql(AllSqls(n-1)).show(10)
 
 
         case t =>
