@@ -96,13 +96,13 @@ object PushDown {
             .config("hive.io.file.readcolumn.names", AllCol(n - 5))
             .enableHiveSupport()
             .getOrCreate()
-          print("***************************************")
+          print("***************************************\n")
           print(AllSqls(n - 1))
-          print("***************************************")
+          print("***************************************\n")
 
-          val tmp = spark.sql(AllSqls(n - 1))
+          val tmp = spark.sql(AllSqls(n - 1)).cache()
           tmp.explain()
-          tmp.foreachPartition(iter => println(s"iter size:${iter.size}"))
+          tmp.count()
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
           tmp.show(10)
@@ -129,13 +129,13 @@ object PushDown {
             .enableHiveSupport()
             .getOrCreate()
 
-          print("***************************************")
+          print("***************************************\n")
           print(NotPushDownSql(n - 5))
-          print("***************************************")
+          print("***************************************\n")
 
-          val tmp = spark.sql(NotPushDownSql(n - 5))
+          val tmp = spark.sql(NotPushDownSql(n - 5)).cache()
           tmp.explain(true)
-          tmp.foreachPartition(iter => println(s"iter size:${iter.size}"))
+          tmp.count()
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
           tmp.show(10)
