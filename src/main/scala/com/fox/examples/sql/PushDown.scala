@@ -67,7 +67,7 @@ object PushDown {
     val AllSqls = Array(PushDownSQL.testSQL1, PushDownSQL.testSQL2, PushDownSQL.testSQL3, PushDownSQL.testSQL4,
       PushDownSQL.testSQl5, PushDownSQL.testSQl6, PushDownSQL.testSQl7, PushDownSQL.testSQL8, PushDownSQL.testSQL9, PushDownSQL.testSQL10)
 
-    if(optimize) {
+    if (optimize) {
       sqlNumber match {
         case n if n >= 1 && n <= 4 =>
           var st = new Date().getTime
@@ -75,17 +75,17 @@ object PushDown {
             .config("spark.sql.catalogImplementation", "hive")
             .enableHiveSupport()
             .getOrCreate()
-          spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sql(AllSqls(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
           st = new Date().getTime
           for (i <- 0 until cycleNumber) {
-            spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+            spark.sql(AllSqls(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSqls(n-1)).show(10)
+          spark.sql(AllSqls(n - 1)).show(10)
         case n if n >= 5 && n <= 10 =>
           var st = new Date().getTime
           val spark = SparkSession.builder()
@@ -97,27 +97,27 @@ object PushDown {
             .enableHiveSupport()
             .getOrCreate()
           print("***************************************")
-          print(AllSqls(n-1))
+          print(AllSqls(n - 1))
           print("***************************************")
 
-          spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sql(AllSqls(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
           st = new Date().getTime
           for (i <- 0 until cycleNumber) {
-            spark.sql(AllSqls(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+            spark.sql(AllSqls(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSqls(n-1)).show(10)
+          spark.sql(AllSqls(n - 1)).show(10)
 
 
         case t =>
           throw new IllegalArgumentException(s"illegal number: $t")
       }
-    }else{
-      val NotPushDownSql =  Array(PushDownSQL.sql5,
+    } else {
+      val NotPushDownSql = Array(PushDownSQL.sql5,
         PushDownSQL.sql6,
         PushDownSQL.sql7,
         PushDownSQL.sql8,
@@ -133,20 +133,22 @@ object PushDown {
             .getOrCreate()
 
           print("***************************************")
-          print(NotPushDownSql(n-5))
+          print(NotPushDownSql(n - 5))
           print("***************************************")
 
-          spark.sql(NotPushDownSql(n-5)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          val tmp = spark.sql(NotPushDownSql(n - 5))
+          tmp.explain(true)
+          tmp.foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
           st = new Date().getTime
           for (i <- 0 until cycleNumber) {
-            spark.sql(NotPushDownSql(n-5)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+            spark.sql(NotPushDownSql(n - 5)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(NotPushDownSql(n-5)).show(10)
+          spark.sql(NotPushDownSql(n - 5)).show(10)
 
         case t =>
           throw new IllegalArgumentException(s"illegal number: $t")
