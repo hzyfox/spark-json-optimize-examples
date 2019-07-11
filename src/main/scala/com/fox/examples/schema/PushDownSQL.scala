@@ -34,29 +34,29 @@ object PushDownSQL {
 
   val testSQl5 =
    """
-     |select * from default_nobench where nobench_json_str1 = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
+     |select nobench_json_str1 from default_nobench where nobench_json_str1 = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
    """.stripMargin
   val sql5 =
       """
-        |select * from nobench where get_json_object(nobench_json,'$.str1') = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
+        |select get_json_object(nobench_json,'$.str1') from nobench where get_json_object(nobench_json,'$.str1') = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
       """.stripMargin
 
   val sql6 =
     """
-      |select * from nobench where get_json_object(nobench_json,'$.num') between 1 and 10000
+      |select get_json_object(nobench_json,'$.num') from nobench where get_json_object(nobench_json,'$.num') between 1 and 10000
     """.stripMargin
 val testSQl6 =
     """
-      |select * from default_nobench where nobench_json_num between 1 and 10000
+      |select nobench_json_num from default_nobench where nobench_json_num between 1 and 10000
     """.stripMargin
 
   val sql7 =
     """
-      |select * from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000
+      |select get_json_object(nobench_json,'$.dyn1') from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000
     """.stripMargin
 val testSQl7 =
   """
-    |select * from default_nobench where nobench_json_dyn1 between 10000 and 20000
+    |select nobench_json_dyn1 from default_nobench where nobench_json_dyn1 between 10000 and 20000
   """.stripMargin
 
   val testSQL8 =
@@ -86,11 +86,11 @@ val testSQl7 =
 
  val testSQL10 =
    """
-     |select * from default_nobench where nobench_json_nested_arr0 = 'out'
+     |select nobench_json_nested_arr0 from default_nobench where nobench_json_nested_arr0 = 'out'
    """.stripMargin
   val sql10 =
    """
-     |select * from nobench where get_json_object(nobench_json,'$.nested_arr[0]') = 'out'
+     |select get_json_object(nobench_json,'$.nested_arr[0]') from nobench where get_json_object(nobench_json,'$.nested_arr[0]') = 'out'
    """.stripMargin
 
 

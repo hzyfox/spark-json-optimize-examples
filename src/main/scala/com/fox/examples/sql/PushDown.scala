@@ -124,12 +124,18 @@ object PushDown {
         PushDownSQL.sql9,
         PushDownSQL.sql10)
       sqlNumber match {
+
         case n if n >= 5 && n <= 10 =>
           var st = new Date().getTime
           val spark = SparkSession.builder()
             .config("spark.sql.catalogImplementation", "hive")
             .enableHiveSupport()
             .getOrCreate()
+
+          print("***************************************")
+          print(NotPushDownSql(n-5))
+          print("***************************************")
+
           spark.sql(NotPushDownSql(n-5)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
@@ -140,7 +146,7 @@ object PushDown {
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSqls(n-5)).show(10)
+          spark.sql(NotPushDownSql(n-5)).show(10)
 
         case t =>
           throw new IllegalArgumentException(s"illegal number: $t")
