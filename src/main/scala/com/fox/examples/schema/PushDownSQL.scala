@@ -43,31 +43,31 @@ object PushDownSQL {
 
   val sql6 =
     """
-      |select get_json_object(nobench_json,'$.num') from nobench where get_json_object(nobench_json,'$.num') between 1 and 10000
+      |select get_json_object(nobench_json,'$.num') from nobench where get_json_object(nobench_json,'$.num') between 1 and 10000 order by get_json_object(nobench_json,'$.num')
     """.stripMargin
 val testSQl6 =
     """
-      |select nobench_json_num from default_nobench where nobench_json_num between 1 and 10000
+      |select nobench_json_num from default_nobench where nobench_json_num between 1 and 10000 order by nobench_json_num
     """.stripMargin
 
   val sql7 =
     """
-      |select get_json_object(nobench_json,'$.dyn1') from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000
+      |select get_json_object(nobench_json,'$.dyn1') from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000 order by get_json_object(nobench_json,'$.dyn1')
     """.stripMargin
 val testSQl7 =
   """
-    |select nobench_json_dyn1 from default_nobench where nobench_json_dyn1 between 10000 and 20000
+    |select nobench_json_dyn1 from default_nobench where nobench_json_dyn1 between 10000 and 20000 order by nobench_json_dyn1
   """.stripMargin
 
   val testSQL8 =
     """
-      |SELECT COUNT(*), nobench_json_thousandth as thousandth FROM default_nobench WHERE nobench_json_num BETWEEN
-      |1 AND 10000 GROUP BY thousandth
+      |SELECT COUNT(*) as num , nobench_json_thousandth as thousandth FROM default_nobench WHERE nobench_json_num BETWEEN
+      |1 AND 10000 GROUP BY thousandth order by num
     """.stripMargin
   val sql8=
     """
-      |SELECT COUNT(*), get_json_object(nobench_json,'$.thousandth') as thousandth FROM NoBench WHERE get_json_object(nobench_json,'$.num') BETWEEN
-      |1 AND 10000 GROUP BY thousandth
+      |SELECT COUNT(*) as num , get_json_object(nobench_json,'$.thousandth') as thousandth FROM NoBench WHERE get_json_object(nobench_json,'$.num') BETWEEN
+      |1 AND 10000 GROUP BY thousandth order by num
     """.stripMargin
 
   val testSQL9 =
