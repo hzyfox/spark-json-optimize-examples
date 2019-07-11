@@ -60,7 +60,7 @@ object PushDown {
     val sqlNumber = commandLine.getOptionValue("ssn").toInt
     val optimize = commandLine.getOptionValue("o").toBoolean
     val cycleNumber = commandLine.getOptionValue("cn").toInt
-    assert(sqlNumber != null && cycleNumber >= 0)
+    assert(sqlNumber != null && optimize != null)
 
     val AllCol = Array(col5, col6, col7, col8, col9, col10)
     val AllArg = Array(sarg_5, sarg_6, sarg_7, sarg_8, sarg_9, sarg_10)
@@ -100,17 +100,14 @@ object PushDown {
           print(AllSqls(n - 1))
           print("***************************************")
 
-          spark.sql(AllSqls(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          val tmp = spark.sql(AllSqls(n - 1))
+          tmp.explain()
+          tmp.foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
+          tmp.show(10)
 
-          st = new Date().getTime
-          for (i <- 0 until cycleNumber) {
-            spark.sql(AllSqls(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
-          }
-          et = new Date().getTime
-          println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSqls(n - 1)).show(10)
+
 
 
         case t =>
@@ -141,14 +138,7 @@ object PushDown {
           tmp.foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
-
-          st = new Date().getTime
-          for (i <- 0 until cycleNumber) {
-            spark.sql(NotPushDownSql(n - 5)).foreachPartition(iter => println(s"iter size:${iter.size}"))
-          }
-          et = new Date().getTime
-          println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(NotPushDownSql(n - 5)).show(10)
+          tmp.show(10)
 
         case t =>
           throw new IllegalArgumentException(s"illegal number: $t")
