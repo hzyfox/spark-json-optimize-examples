@@ -1,5 +1,7 @@
 package com.fox.examples.sql
 
+import java.util.Date
+
 import com.fox.examples.util.CreateTableCLI
 import org.apache.commons.cli.HelpFormatter
 import org.apache.spark.sql.SparkSession
@@ -60,6 +62,9 @@ object CacheTable {
         (v._1,wrappedJsonPath)
     }).collect().toMap
 
+    var st = new Date().getTime
+
+
     for(x <- tableMap){
       val dbAndTableName = x._1.split("\\.")
       val dbName = dbAndTableName(0)
@@ -69,8 +74,10 @@ object CacheTable {
       spark.sql(s"drop table if exists ${dbName}_${tableName}")
       spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${userDBName}.${dbName}_${tableName}")
 
-      spark.sql(s"select * from ${dbName}_${tableName} limit 1").show()
     }
+
+    var et = new Date().getTime
+    println(s"TestSQL 1: First execution time = ${(et-st)/1000.0}s ")
 
 
 
