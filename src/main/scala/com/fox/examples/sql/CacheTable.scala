@@ -64,7 +64,7 @@ object CacheTable {
 
     var st = new Date().getTime
 
-
+    var i = 0;
     for(x <- tableMap){
       val dbAndTableName = x._1.split("\\.")
       val dbName = dbAndTableName(0)
@@ -72,8 +72,12 @@ object CacheTable {
       val selectContentString = x._2
       println(selectContentString)
       spark.sql(s"drop table if exists ${dbName}_${tableName}")
-      spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${userDBName}.${dbName}_${tableName}")
 
+      val sst =  new Date().getTime
+      spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${userDBName}.${dbName}_${tableName}")
+      val eet = new Date().getTime
+      println(s"$tableName $i cache: First execution time = ${(eet-sst)/1000.0}s ")
+      i +=1;
     }
 
     var et = new Date().getTime

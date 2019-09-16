@@ -192,6 +192,9 @@ object AllSQL1 {
     """.stripMargin
 
 
+
+
+
   val testSQL1 =
     """
       |SELECT get_json_object(nobench_json,'$.str1'), get_json_object(nobench_json,'$.num') FROM NoBench
