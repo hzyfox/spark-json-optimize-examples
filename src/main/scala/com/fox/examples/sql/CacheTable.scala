@@ -33,7 +33,7 @@ object CacheTable {
     import spark.implicits._
 
     val filePath = commandLine.getOptionValue("s")
-    val userDBName = commandLine.getOptionValue("db")
+//    val userDBName = commandLine.getOptionValue("db")
 //    val pattern = new Regex("""jsonpath_(\w+)?_""")
 //    val tableName = pattern.findFirstMatchIn(filePath).get.group(1)
 //    println(s"tableName:$tableName")
@@ -74,7 +74,7 @@ object CacheTable {
       spark.sql(s"drop table if exists ${dbName}_${tableName}")
 
       val sst =  new Date().getTime
-      spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${userDBName}.${dbName}_${tableName}")
+      spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${dbName}.${dbName}_${tableName}")
       val eet = new Date().getTime
       println(s"$tableName $i cache: First execution time = ${(eet-sst)/1000.0}s ")
       i +=1;
