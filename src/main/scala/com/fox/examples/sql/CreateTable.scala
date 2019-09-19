@@ -147,10 +147,13 @@ object CreateTable {
       case "ods_parm_d2" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
           val base = iter.next()
+          val random = new Random()
           val buffer = new ListBuffer[ods_parm_d2]
           val array = base.split("%%%%%")
           for(i <- 0 until recordEachPartition){
-            buffer += ods_parm_d2(array(0),array(1),array(2),array(3),array(4),array(5))
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            buffer += ods_parm_d2(array(0)+id,array(1)+id,array(2)+id,array(3)+id,array(4)+id,array(5).substring(0,array(5).lastIndexOf("}"))+jsonId)
           }
           buffer.iterator
         }).toDF()
@@ -161,32 +164,41 @@ object CreateTable {
           val base = iter.next()
           val buffer = new ListBuffer[s_gd_poi_base]
           val array = base.split("%%%%%")
+          val random = new Random()
           for(i <- 0 until recordEachPartition){
-            buffer += s_gd_poi_base(array(0),array(1))
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            buffer += s_gd_poi_base(array(0)+id,array(1).substring(0,array(1).lastIndexOf("}"))+jsonId)
           }
           buffer.iterator
         }).toDF()
         dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
-      case "cms_ces_generic_review_df" => {
-        val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
-          val base = iter.next()
-          val buffer = new ListBuffer[cms_ces_generic_review_df]
-          val array = base.split("%%%%%")
-          for(i <- 0 until recordEachPartition){
-            buffer += cms_ces_generic_review_df(BigInt(array(0)),array(1),array(2))
-          }
-          buffer.iterator
-        }).toDF()
-        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
-      }
+//      case "cms_ces_generic_review_df" => {
+//        val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
+//          val base = iter.next()
+//          val buffer = new ListBuffer[cms_ces_generic_review_df]
+//          val array = base.split("%%%%%")
+//          val random = new Random()
+//          for(i <- 0 until recordEachPartition){
+//            val id = random.nextInt().toString
+//            val jsonId = s""","randomId":"$id"}"""
+//            buffer += cms_ces_generic_review_df(BigInt(array(0)),array(1),array(2))
+//          }
+//          buffer.iterator
+//        }).toDF()
+//        dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
+//      }
       case "s_generic_task_edit_result_json" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
           val base = iter.next()
           val buffer = new ListBuffer[s_generic_task_edit_result_json]
           val array = base.split("%%%%%")
+          val random = new Random()
+          val id = random.nextInt().toString
+          val jsonId = s""","randomId":"$id"}"""
           for(i <- 0 until recordEachPartition){
-            buffer += s_generic_task_edit_result_json(array(0))
+            buffer += s_generic_task_edit_result_json(array(0).substring(0,array(0).lastIndexOf("}"))+jsonId)
           }
           buffer.iterator
         }).toDF()

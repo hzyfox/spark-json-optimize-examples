@@ -69,7 +69,6 @@ object TestSQL1 {
       sqlNumber match {
         case n if n >= 1 && n <= 10 =>
           var st = new Date().getTime
-          println(s"******************************************************************$n")
           spark.sql(AllSQLs(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")

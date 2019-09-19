@@ -9,6 +9,7 @@ import org.apache.spark.sql.SparkSession
 
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
+import scala.util.Random
 
 /**
   * @author zyp
@@ -65,8 +66,11 @@ object CreateTable1 {
           val base = iter.next()
           val buffer = new ListBuffer[dsp_cp_sdk_events]
           val array = base.split("%%%%%")
-          val content = array(0)
+          val random = new Random()
           for (_ <- 0 until recordEachPartition) {
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            val content = array(0).substring(0,array(0).lastIndexOf("}"))+jsonId
             buffer += dsp_cp_sdk_events(content)
           }
           buffer.iterator
@@ -78,10 +82,13 @@ object CreateTable1 {
           val base = iter.next()
           val buffer = new ListBuffer[wifi_vac_log_internal]
           val array = base.split("%%%%%")
-          val apipath = array(0)
-          val loglevel = array(1)
-          val jsondata = array(2)
+          val random = new Random()
           for (_ <- 0 until recordEachPartition) {
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            val apipath = array(0)+id
+            val loglevel = array(1)+id
+            val jsondata = array(2).substring(0,array(2).lastIndexOf("}"))+jsonId
             buffer += wifi_vac_log_internal(apipath, loglevel, jsondata)
           }
           buffer.iterator
@@ -92,28 +99,35 @@ object CreateTable1 {
           val base = iter.next()
           val buffer = new ListBuffer[odl_cactus_scalog_di]
           val array = base.split("%%%%%")
-          val seedurl = array(0)
-          val occurtime = array(1)
-          val vultype = array(2)
-          val description = array(3)
+          val random =  new Random()
           for (_ <- 0 until recordEachPartition) {
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            val seedurl = array(0)+id
+            val occurtime = array(1)+id
+            val vultype = array(2)+id
+            val description = array(3).substring(0,array(3).lastIndexOf("}"))+jsonId
             buffer += odl_cactus_scalog_di(seedurl, occurtime, vultype, description)
           }
           buffer.iterator
         }).toDF()
         dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(tableName)
+
       case "odps_gongxiang_monitor_data" =>
         val dataTable = spark.sparkContext.parallelize(seq, partitionNumber).mapPartitions(iter => {
           val base = iter.next()
           val buffer = new ListBuffer[odps_gongxiang_monitor_data]
           val array = base.split("%%%%%")
-          val ts = array(0)
-          val host_name = array(1)
-          val full_parent_name = array(2)
-          val item_id = array(3).toLong
-          val item_name = array(4)
-          val value = array(5)
+          val random =  new Random()
           for (_ <- 0 until recordEachPartition) {
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            val ts = array(0)+id
+            val host_name = array(1)+id
+            val full_parent_name = array(2)+id
+            val item_id = array(3).toLong+id.toLong
+            val item_name = array(4)+id
+            val value = array(5).substring(0,array(5).lastIndexOf("}"))+jsonId
             buffer += odps_gongxiang_monitor_data(ts, host_name, full_parent_name, item_id, item_name, value)
           }
           buffer.iterator
@@ -125,11 +139,14 @@ object CreateTable1 {
           val base = iter.next()
           val buffer = new ListBuffer[toutiao_all_feeds]
           val array = base.split("%%%%%")
-          val feed_id = array(0)
-          val form = array(1)
-          val show_date = array(2)
-          val feature = array(3)
+          val random =  new Random()
           for (_ <- 0 until recordEachPartition) {
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            val feed_id = array(0)+id
+            val form = array(1)+id
+            val show_date = array(2)+id
+            val feature = array(3).substring(0,array(3).lastIndexOf("}"))+jsonId
             buffer += toutiao_all_feeds(feed_id, form, show_date, feature)
           }
           buffer.iterator
@@ -154,10 +171,13 @@ object CreateTable1 {
           val base = iter.next()
           val buffer = new ListBuffer[gul_tpp_tt_feature_log_mm]
           val array = base.split("%%%%%")
-          val pvid = array(0)
-          val timestamp = array(1)
-          val user_json = array(2)
+          val random =  new Random()
           for (_ <- 0 until recordEachPartition) {
+            val id = random.nextInt().toString
+            val jsonId = s""","randomId":"$id"}"""
+            val pvid = array(0)
+            val timestamp = array(1)
+            val user_json = array(2).substring(0,array(2).lastIndexOf("}"))+jsonId
             buffer += gul_tpp_tt_feature_log_mm(pvid, timestamp, user_json)
           }
           buffer.iterator
