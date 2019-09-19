@@ -11,6 +11,7 @@ import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
+import scala.util.Random
 import scala.util.matching.Regex
 
 /**
@@ -121,18 +122,22 @@ object CreateTable {
         }).toDF()
         dataTable.write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable(daName+"."+tableName)
       }
+        /***********************************************************************************************************************************/
       case "ods_parm_d" => {
         val dataTable = spark.sparkContext.parallelize(seq,partitionNumber).mapPartitions(iter => {
           val base = iter.next()
           val buffer = new ListBuffer[ods_parm_d]
           val array = base.split("%%%%%")
-          val parm_t_code = array(0)
-          val crtor = array(1)
-          val last_moder =  array(2)
-          val gmt_create = array (3)
-          val gmt_modified = array (4)
-          val json_data = array(5)
+          val random = new Random()
           for(i <- 0 until recordEachPartition){
+            var id = random.nextInt().toString
+            val parm_t_code = array(0)+id
+            val crtor = array(1)+id
+            val last_moder =  array(2)+id
+            val gmt_create = array (3)+id
+            val gmt_modified = array (4)+id
+            id = s""","randomId":"$id"}"""
+            val json_data = array(5).substring(0,array(5).lastIndexOf("}"))+id
             buffer += ods_parm_d(parm_t_code  ,crtor ,last_moder  ,gmt_create ,gmt_modified ,json_data)
           }
           buffer.iterator

@@ -6,7 +6,7 @@ package com.fox.examples.schema
   */
 object AllSQL1 {
 
-  val sql3 = """select
+  val sql1 = """select
                |    parm_t_code,
                |    GET_JSON_OBJECT(json_data,'$.dataContentQualifierDesc') AS dataContentQualifierDesc,
                |    GET_JSON_OBJECT(json_data,'$.dataContentDepartmentId') AS  dataContentDepartmentId,
@@ -27,7 +27,7 @@ object AllSQL1 {
                |     from ods_parm_d
                |	where parm_t_code != '120001235'""".stripMargin
 
-  val sql4 = """select
+  val sql2 = """select
                |	'20190104' as thedate
                |	,parm_t_code
                |	,GET_JSON_OBJECT(json_data,'$.dataContentDimAttributeEnName') as dataContentDimAttributeEnName
@@ -48,7 +48,7 @@ object AllSQL1 {
                |	  from ods_parm_d2
                |	where parm_t_code != '120001242'""".stripMargin
 
-  val sql5 = """select aa.poiid,
+  val sql3 = """select aa.poiid,
                |	                aa.name,
                |	                aa.update_flag as newupdate_flag,
                |	                aa.update_flag_source as newupdate_flagsource,
@@ -75,7 +75,7 @@ object AllSQL1 {
                |	) aa""".stripMargin
 
 
-  val sql6 = """
+  val sql4 = """
                |	        select
                |	        GET_JSON_OBJECT(b.data, '$.result.poi_status.verify') as result_tag
                |	        from
@@ -86,7 +86,7 @@ object AllSQL1 {
     * sql 7
     */
 
-  val sql7 =
+  val sql5 =
     """
       |select  coalesce(get_json_object(content, '$.params.accountId'), '') as account_id
       |,coalesce(get_json_object(content, '$.envInfo.devInfo.deviceId'), '') as dev_id
@@ -107,7 +107,7 @@ object AllSQL1 {
       |dsp_cp_sdk_events
     """.stripMargin
 
-  val sql8 =
+  val sql6 =
     """
       |SELECT loglevel AS notify_status,
       |GET_JSON_OBJECT(jsondata,"$.ap.ap_mac") AS ap_mac,
@@ -142,7 +142,7 @@ object AllSQL1 {
       |FROM wifi_vac_log_internal
     """.stripMargin
 
-  val sql9 =
+  val sql7 =
     """
       |select seedurl as ip
       |, get_json_object(description, '$.weakUsername') as u
@@ -152,7 +152,7 @@ object AllSQL1 {
     """.stripMargin
 
 
-  val sql10 =
+  val sql8 =
     """
       |select ts,host_name,full_parent_name,item_id,item_name,
       |get_json_object(value,'$.cpu') cpu_avg,
@@ -163,7 +163,7 @@ object AllSQL1 {
       |from odps_gongxiang_monitor_data
     """.stripMargin
 
-  val sql11 =
+  val sql9 =
     """
       |select feed_id,
       |'' as is_jingxuan,
@@ -176,7 +176,7 @@ object AllSQL1 {
       |from toutiao_all_feeds
     """.stripMargin
 
-  val sql12 =
+  val sql10 =
     """
       |SELECT  pvid
       |,GET_JSON_OBJECT(user_json, '$.user_id') AS user_id

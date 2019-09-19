@@ -65,21 +65,21 @@ object TestSQL1 {
         .config("spark.sql.json.optimize", optimize)
         .enableHiveSupport()
         .getOrCreate()
-      val AllSQLs = Array(AllSQL1.sql3,AllSQL1.sql4,AllSQL1.sql5,AllSQL1.sql6,AllSQL1.sql7, AllSQL1.sql8, AllSQL1.sql9, AllSQL1.sql10, AllSQL1.sql11, AllSQL1.sql12)
+      val AllSQLs = Array( AllSQL1.sql1, AllSQL1.sql2,AllSQL1.sql3,AllSQL1.sql4,AllSQL1.sql5,AllSQL1.sql6,AllSQL1.sql7, AllSQL1.sql8, AllSQL1.sql9, AllSQL1.sql10)
       sqlNumber match {
-        case n if n >= 3 && n <= 12 =>
+        case n if n >= 1 && n <= 10 =>
           var st = new Date().getTime
-          spark.sql(AllSQLs(n - 3)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sql(AllSQLs(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
           st = new Date().getTime
           for (i <- 0 until cycleNumber) {
-            spark.sql(AllSQLs(n - 3)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+            spark.sql(AllSQLs(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
           }
           et = new Date().getTime
           println(s"TestSQL $n:$cycleNumber times average time = ${(et - st) / (cycleNumber * 1000.0)}s")
-          spark.sql(AllSQLs(n-3)).show(10)
+          spark.sql(AllSQLs(n-1)).show(10)
         case t =>
           throw new IllegalArgumentException(s"illegal number: $t")
       }
