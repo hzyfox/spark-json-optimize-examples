@@ -1,0 +1,15 @@
+default,wifi_vac_log_internal,jsondata,ap.sta_cnt
+default,wifi_vac_log_internal,jsondata,ap.cpu_usage
+default,wifi_vac_log_internal,jsondata,ap.memory_usage
+default,wifi_vac_log_internal,jsondata,ap.sw_version_verbose
+default,wifi_vac_log_internal,jsondata,ap.last_reboot_reason
+default,wifi_vac_log_internal,jsondata,ap.effect_md5
+default,wifi_vac_log_internal,jsondata,ap.ota_uuid
+default,wifi_vac_log_internal,jsondata,ap.radio[0].channel
+default,wifi_vac_log_internal,jsondata,ap.radio[0].channel_usage
+default,wifi_vac_log_internal,jsondata,ap.radio[1].channel_usage
+default,wifi_vac_log_internal,jsondata,ap.radio[1].noise
+default,wifi_vac_log_internal,jsondata,ap.wan_type
+default,wifi_vac_log_internal,jsondata,ap.wan_recv
+default,wifi_vac_log_internal,jsondata,ap.wan_sent
+default,wifi_vac_log_internal,jsondata,wan_ip

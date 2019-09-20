@@ -1,0 +1,15 @@
+default,gul_tpp_tt_feature_log_mm,user_json,user_id
+default,gul_tpp_tt_feature_log_mm,user_json,g_cart
+default,gul_tpp_tt_feature_log_mm,user_json,g_fav
+default,gul_tpp_tt_feature_log_mm,user_json,g_pay
+default,gul_tpp_tt_feature_log_mm,user_json,st
+default,gul_tpp_tt_feature_log_mm,user_json,time
+default,gul_tpp_tt_feature_log_mm,user_json,opt_seq_length
+default,gul_tpp_tt_feature_log_mm,user_json,user_behavior_seq
+default,wifi_vac_log_internal,jsondata,ap.effect_md5
+default,wifi_vac_log_internal,jsondata,ap.ota_uuid
+default,wifi_vac_log_internal,jsondata,ap.sync
+default,wifi_vac_log_internal,jsondata,ap.radio[0].radio_index
+default,wifi_vac_log_internal,jsondata,ap.radio[1].noise
+default,wifi_vac_log_internal,jsondata,ap.link_speed
+default,wifi_vac_log_internal,jsondata,wan_ip
