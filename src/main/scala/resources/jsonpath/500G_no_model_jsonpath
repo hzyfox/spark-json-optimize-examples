@@ -23,7 +23,7 @@ default,ods_parm_d2,json_data,dataContentDimAttributeId
 default,ods_parm_d2,json_data,dataContentDimAttributeHierachyId
 default,ods_parm_d2,json_data,dataContentDimAttributeDesc
 default,ods_parm_d2,json_data,dataContentParentDimAttributeId
-default,od_parm_d2,json_data,dataContentDataType
+default,ods_parm_d2,json_data,dataContentDataType
 default,wifi_vac_log_internal,jsondata,ap.ap_mac
 default,wifi_vac_log_internal,jsondata,ap.sw_version
 default,wifi_vac_log_internal,jsondata,ap.serial

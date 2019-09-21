@@ -74,7 +74,7 @@ object CacheTable {
       spark.sql(s"drop table if exists ${dbName}_${tableName}")
 
       val sst =  new Date().getTime
-      spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("append").saveAsTable(s"${dbName}.${dbName}_${tableName}")
+      spark.sql(s"select ${selectContentString} from ${dbName}.${tableName}").write.format("hive").option("fileFormat","orc").mode("overwrite").saveAsTable(s"${dbName}.${dbName}_${tableName}")
       val eet = new Date().getTime
       println(s"$tableName $i cache: First execution time = ${(eet-sst)/1000.0}s ")
       i +=1;
