@@ -78,7 +78,7 @@ object CacheNobench {
       println(sql)
       val df = spark.sql(sql)
       println(df.count())
-//        df.write.format("hive").option("fileFormat","orc").mode("overwrite").saveAsTable(s"${dbName}.${dbName}_${tableName}")
+        df.write.format("hive").option("fileFormat","orc").mode("overwrite").saveAsTable("default.default_newnobench")
       val eet = new Date().getTime
       println(s"$tableName $i cache: First execution time = ${(eet-sst)/1000.0}s ")
       i +=1;
