@@ -61,12 +61,12 @@ val testSQl7 =
 
   val testSQL8 =
     """
-      |SELECT COUNT(*) as num , nobench_json_thousandth as thousandth,uuid1,uuid2,uuid3  FROM default_newnobench WHERE nobench_json_num BETWEEN
+      |SELECT COUNT(uuid1) as num , nobench_json_thousandth as thousandth  FROM default_newnobench WHERE nobench_json_num BETWEEN
       |1 AND 10000 GROUP BY thousandth order by num
     """.stripMargin
   val sql8=
     """
-      |SELECT COUNT(*) as num , get_json_object(nobench_json,'$.thousandth') as thousandth ,uuid1,uuid2,uuid3 from newnobench WHERE get_json_object(nobench_json,'$.num') BETWEEN
+      |SELECT COUNT(uuid1) as num , get_json_object(nobench_json,'$.thousandth') as thousandth  from newnobench WHERE get_json_object(nobench_json,'$.num') BETWEEN
       |1 AND 10000 GROUP BY thousandth order by num
     """.stripMargin
 
