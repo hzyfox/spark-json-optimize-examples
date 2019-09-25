@@ -1,0 +1,12 @@
+default,newnobench,nobench_json,str1
+default,newnobench,nobench_json,num
+default,newnobench,nobench_json,nested_obj.str1
+default,newnobench,nobench_json,nested_obj.str
+default,newnobench,nobench_json,nested_obj.num
+default,newnobench,nobench_json,sparse_340
+default,newnobench,nobench_json,sparse_341
+default,newnobench,nobench_json,sparse_470
+default,newnobench,nobench_json,dyn1
+default,newnobench,nobench_json,thousandth
+default,newnobench,nobench_json,str
+default,newnobench,nobench_json,nested_arr[0]
