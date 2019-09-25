@@ -26,8 +26,7 @@ object CreateNewNobench {
       val uuid2 = UUID.randomUUID().toString
       val uuid3 = UUID.randomUUID().toString
       NewNobench(json,uuid1,uuid2,uuid3)
-    }).toDF("json","uuid1","uuid2","uuid3")
-      .write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable("newnobench")
+    }).write.format("hive").mode("overwrite").option("fileFormat", "orc").saveAsTable("newnobench")
   }
 
 }
