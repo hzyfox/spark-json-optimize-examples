@@ -9,7 +9,7 @@ import org.apache.spark.sql.{Row, SparkSession}
   */
 
 object CreateNewNobench {
-  case class NewNobench(json:String,uuid1:String,uuid2:String,uuid3:String)
+  case class NewNobench(nobench_json:String,uuid1:String,uuid2:String,uuid3:String)
   def main(args: Array[String]): Unit = {
 
     val spark = SparkSession
