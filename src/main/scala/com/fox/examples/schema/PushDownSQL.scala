@@ -34,52 +34,52 @@ object PushDownSQL {
 
   val testSQl5 =
    """
-     |select nobench_json_str1 from default_nobench where nobench_json_str1 = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
+     |select nobench_json_str1,uuid1,uuid2,uuid3 from default_nobench where nobench_json_str1 = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
    """.stripMargin
   val sql5 =
       """
-        |select get_json_object(nobench_json,'$.str1') from nobench where get_json_object(nobench_json,'$.str1') = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
+        |select get_json_object(nobench_json,'$.str1'),uuid1,uuid2,uuid3 from nobench where get_json_object(nobench_json,'$.str1') = 'GBRDCMJQGAYTCMBQGEYDCMJQGEYTCMBRGAYTA==='
       """.stripMargin
 
   val sql6 =
     """
-      |select get_json_object(nobench_json,'$.num') from nobench where get_json_object(nobench_json,'$.num') between 1 and 10000 order by get_json_object(nobench_json,'$.num')
+      |select get_json_object(nobench_json,'$.num'),uuid1,uuid2,uuid3 from nobench where get_json_object(nobench_json,'$.num') between 1 and 10000 order by get_json_object(nobench_json,'$.num')
     """.stripMargin
 val testSQl6 =
     """
-      |select nobench_json_num from default_nobench where nobench_json_num between 1 and 10000 order by nobench_json_num
+      |select nobench_json_num,uuid1,uuid2,uuid3 from default_nobench where nobench_json_num between 1 and 10000 order by nobench_json_num
     """.stripMargin
 
   val sql7 =
     """
-      |select get_json_object(nobench_json,'$.dyn1') from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000 order by get_json_object(nobench_json,'$.dyn1')
+      |select get_json_object(nobench_json,'$.dyn1'),uuid1,uuid2,uuid3  from nobench where get_json_object(nobench_json,'$.dyn1') between 10000 and 20000 order by get_json_object(nobench_json,'$.dyn1')
     """.stripMargin
 val testSQl7 =
   """
-    |select nobench_json_dyn1 from default_nobench where nobench_json_dyn1 between 10000 and 20000 order by nobench_json_dyn1
+    |select nobench_json_dyn1,uuid1,uuid2,uuid3  from default_nobench where nobench_json_dyn1 between 10000 and 20000 order by nobench_json_dyn1
   """.stripMargin
 
   val testSQL8 =
     """
-      |SELECT COUNT(*) as num , nobench_json_thousandth as thousandth FROM default_nobench WHERE nobench_json_num BETWEEN
+      |SELECT COUNT(*) as num , nobench_json_thousandth as thousandth,uuid1,uuid2,uuid3  FROM default_nobench WHERE nobench_json_num BETWEEN
       |1 AND 10000 GROUP BY thousandth order by num
     """.stripMargin
   val sql8=
     """
-      |SELECT COUNT(*) as num , get_json_object(nobench_json,'$.thousandth') as thousandth FROM NoBench WHERE get_json_object(nobench_json,'$.num') BETWEEN
+      |SELECT COUNT(*) as num , get_json_object(nobench_json,'$.thousandth') as thousandth ,uuid1,uuid2,uuid3 FROM NoBench WHERE get_json_object(nobench_json,'$.num') BETWEEN
       |1 AND 10000 GROUP BY thousandth order by num
     """.stripMargin
 
   val testSQL9 =
     """
       |select * from (SELECT nobench_json_num as num, nobench_json_nested_obj_str as str FROM default_nobench) left1 inner join
-      |(SELECT nobench_json_str1 as str1 from default_nobench) right1 ON (left1.str =
+      |(SELECT nobench_json_str1 as str1,uuid1,uuid2,uuid3  from default_nobench) right1 ON (left1.str =
       |right1.str1) WHERE left1.num BETWEEN 1 AND 10000
     """.stripMargin
   val sql9 =
     """
       |select * from (SELECT get_json_object(nobench_json, '$.num') as num, get_json_object(nobench_json, '$.nested_obj.str') as str FROM NoBench) left1 inner join
-      |(SELECT get_json_object(nobench_json, '$.str1') as str1 from NoBench) right1 ON (left1.str =
+      |(SELECT get_json_object(nobench_json, '$.str1') as str1 ,uuid1,uuid2,uuid3 from NoBench) right1 ON (left1.str =
       |right1.str1) WHERE left1.num BETWEEN 1 AND 10000
     """.stripMargin
 
