@@ -36,12 +36,13 @@ object TestSQL1 {
         .config("spark.sql.catalogImplementation", "hive")
         .enableHiveSupport()
         .getOrCreate()
-
+      import spark.implicits._
       val AllMisonSQL = Array(MisonSQL.sql1,MisonSQL.sql2,MisonSQL.sql3,MisonSQL.sql4,MisonSQL.sql5,MisonSQL.sql6,MisonSQL.sql7,MisonSQL.sql8,MisonSQL.sql9,MisonSQL.sql10)
       sqlNumber match{
         case n if n >= 1 && n <= 10 =>{
           var st = new Date().getTime
-          spark.sql(AllMisonSQL(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+//          spark.sql(AllMisonSQL(n - 1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sparkContext.parallelize(Seq("1","2","3")).toDF().show()
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
@@ -65,11 +66,13 @@ object TestSQL1 {
         .config("spark.sql.json.optimize", optimize)
         .enableHiveSupport()
         .getOrCreate()
+      import spark.implicits._
       val AllSQLs = Array( AllSQL1.sql1, AllSQL1.sql2,AllSQL1.sql3,AllSQL1.sql4,AllSQL1.sql5,AllSQL1.sql6,AllSQL1.sql7, AllSQL1.sql8, AllSQL1.sql9, AllSQL1.sql10)
       sqlNumber match {
         case n if n >= 1 && n <= 10 =>
           var st = new Date().getTime
-          spark.sql(AllSQLs(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+//          spark.sql(AllSQLs(n-1)).foreachPartition(iter => println(s"iter size:${iter.size}"))
+          spark.sparkContext.parallelize(Seq("1","2","3")).toDF().show()
           var et = new Date().getTime
           println(s"TestSQL $n: First execution time = ${(et - st) / 1000.0}s ")
 
