@@ -28,7 +28,7 @@ object TestSQL1 {
     val sqlNumber = commandLine.getOptionValue("ssn").toInt
     val optimize = commandLine.getOptionValue("o")
     val cycleNumber = commandLine.getOptionValue("cn").toInt
-    assert(sqlNumber > 0 && optimize != null && cycleNumber > 0)
+    assert(sqlNumber > 0 && optimize != null && cycleNumber >= 0)
 
     if(optimize.equals("mison")){
       val spark = SparkSession
